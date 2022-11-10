@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./adabtive.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>All Products - RedStore</title>
+</head>
+<body>
+    <!-- ------------ account page ----------- -->
+    <div class="account-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    <img src="./imges/image1.png" alt="Errror :(" width="100%">
+                </div>
+                <div class="col-2">
+                    <div class="form-container">
+                        <div class="form-btn">
+                            <span onclick="login()">Login</span>
+                            <span onclick="register()">Register</span>
+                            <hr id="indictor">
+                        </div>
+                        <form id="loginForm">
+                            <input type="text" placeholder="Username" class="loginName">
+                            <input type="password" placeholder="Password" class="loginPassword">
+                            <a href="#" id="loginLink"><button type="button" class="btn login-btn">Login</button></a>
+                            <a href="#">Forgot password</a>
+                        </form>
+
+                        <form id="registerForm">
+                            <input type="text" placeholder="Username" class="registerName">
+                            <input type="email" placeholder="Email" class="registerEmail">
+                            <input type="password" placeholder="Password" class="registerPassword">
+                            <a href="#" id="link"><button type="button" class="btn register-btn">Register</button></a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <!-- js for toggle Form  -->
+   <script>
+    let loginForm = document.querySelector('#loginForm');
+    let registerForm = document.querySelector('#registerForm');
+    let indictor = document.querySelector('#indictor'); 
+
+    function register() {
+        registerForm.style.transform = 'translateX(0px)';
+        loginForm.style.transform = 'translateX(0px)';
+        indictor.style.transform = 'translateX(100px)';
+    };
+
+    function login() {
+        registerForm.style.transform = 'translateX(300px)';
+        loginForm.style.transform = 'translateX(300px)';
+        indictor.style.transform = 'translateX(0px)';
+    };
+
+
+    // register 
+    let bd = [
+        {
+        username: 'Dastan',
+        email: 'Jylkychiev.03@gmail.com',
+        password: 123,
+        id: Date.now()
+        }
+    ];
+
+    let registerBtn = document.querySelector('.register-btn');
+    let registerName = document.querySelector('.registerName');
+    let registerEmail = document.querySelector('.registerEmail');
+    let registerPassword = document.querySelector('.registerPassword');
+    let link = document.querySelector('#link');
+
+    function changeName(name) {
+        return bd.some(item =>  item.username == name);
+    };
+    
+    function changeRegister() {
+        if(!registerName.value.trim() || !registerEmail.value.trim() || !registerPassword.value.trim() ) {
+            alert('Fill in the empty spaces!!!');
+            return;
+        };
+        let nameResult = changeName(registerName.value);
+        if(!nameResult) {
+            link.href = 'index.html';
+            let obj = {
+                username: registerName.value,
+                email: registerEmail.value,
+                password: registerPassword.value,
+                id: Date.now()
+            };
+            bd.push(obj);
+        }else {
+            alert('Name taken!');
+            return;
+        };
+        
+        registerName.value = '';
+        registerEmail.value = '';
+        registerPassword.value = '';
+    };
+    registerBtn.addEventListener('click', changeRegister);
+
+
+    // login 
+
+    let loginName = document.querySelector('.loginName');
+    let loginPassword = document.querySelector('.loginPassword');
+    let loginBtn = document.querySelector('.login-btn');
+    let loginLink = document.querySelector('#loginLink');
+
+    function changeName(name, password) {
+        return bd.some(item =>  item.username == name && item.password == password);
+    };
+
+    function loginFunc() {
+    if(!loginName.value.trim() || !loginPassword.value.trim()) {
+        alert('Fill in the empty spaces!!!');
+            return;
+    };
+    let nameResult = changeName(loginName.value, loginPassword.value);
+    if(nameResult) {
+        loginLink.href = 'index.html';
+    }else {
+        alert('Wrong password or username!!!')
+    };
+    loginName.value = '';
+    loginPassword.value = '';
+   };
+   loginBtn.addEventListener('click', loginFunc);
+
+   </script>
+</body>
+</html>
